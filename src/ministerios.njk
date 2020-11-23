@@ -3,7 +3,7 @@ title: Ministerios
 layout: base.njk
 pagination:
   data: collections.ministerios
-  size: 8
+  size: 16
   alias: ministerios
 permalink: "ministerios/{{ pagination.pageNumber + 1 }}/index.html"
 ---
@@ -37,7 +37,11 @@ permalink: "ministerios/{{ pagination.pageNumber + 1 }}/index.html"
           <div class="row h-100 m-0 border">
             {% set lengthfotoUrl = ministerioData.fotoUrl | length %}
             <div class="w-100">
-              <img class="w-100 h-auto" src="{{ministerioData.fotoUrl}}" alt="{{ ministerioData.nombreDeInstitucion | title }}">
+              <img
+                class="w-100 h-auto"
+                src="{{ministerioData.fotoUrl}}"
+                alt="{{ ministerioData.nombreDeInstitucion | title }}"
+                onerror="this.onerror=null;this.src='/assets/img/map-placeholder.png';">
             </div>
             <div class="col-12 p-2 pb-0 m-0">
               <h6>

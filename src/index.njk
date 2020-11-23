@@ -36,9 +36,7 @@
             {% set ministroData = ministro.data.ministro %}
             <div class="col-12 col-lg-3 py-1">
               <div class="w-100 h-100 border row m-0 p-0">
-                <div class="bg-dark w-100 text-center col-12 m-0 p-0">
-                  <img src="/assets/img/RED.png" class="p-4 img-fluid" alt="Laboratorio">
-                </div>
+                <img class="w-100 img-fluid" src="/assets/img/map-placeholder.png" alt="Map placeholder">
                 <div class="w-100 pt-3 px-3 pb-0 col-12 m-0">
                   <p>
                     {{ ministroData.nombre | title }}, <br>
@@ -48,6 +46,45 @@
                 <a href="{{ministro.url}}" class="btn btn-primary text-white mt-auto mx-3 mb-3">Ver más</a>
               </div>
             </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-white w-100">
+    <div class="container py-5">
+      <div class="row">
+        <div class="col-12 d-flex mb-2">
+          <h1>
+            Ministerios
+          </h1>
+          <div class="ml-auto">
+            <a href="ministerios/1/index.html" class="btn btn-secondary text-white">
+              Ver más
+            </a>
+          </div>
+        </div>
+        {% set ministerios = collections.ministerios | slice(collections.ministerios.length / 4) %}
+        {% set ministerios = ministerios[0] %}
+        <div class="row row-eq-height">
+          {%- for ministerio in ministerios %}
+          {% set ministerioData = ministerio.data.ministerio %}
+          <div class="col-12 col-lg-3 py-1">
+            <div class="w-100 h-100 border row m-0 p-0">
+              {% set fotoUrl = ministerioData.fotoUrl %}
+              <img
+                class="w-100 img-fluid"
+                src="{{ fotoUrl if fotoUrl else '/assets/img/map-placeholder.png' }}"
+                alt="Map placeholder"
+                onerror="this.onerror=null;this.src='/assets/img/map-placeholder.png';">
+              <div class="w-100 pt-3 px-3 pb-0 col-12 m-0">
+                <p>
+                  {{ ministerioData.nombreDeInstitucion }}
+                </p>
+              </div>
+              <a href="{{ministerio.url}}" class="btn btn-primary text-white mt-auto mx-3 mb-3">Ver más</a>
+            </div>
+          </div>
           {% endfor %}
         </div>
       </div>

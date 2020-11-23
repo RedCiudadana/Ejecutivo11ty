@@ -3,7 +3,7 @@ title: Ministros
 layout: base.njk
 pagination:
   data: collections.ministros
-  size: 8
+  size: 16
   alias: ministros
 permalink: "ministros/{{ pagination.pageNumber + 1 }}/index.html"
 ---
@@ -35,7 +35,7 @@ permalink: "ministros/{{ pagination.pageNumber + 1 }}/index.html"
         {% set ministroData = ministro.data.ministro %}
         <div class="col-12 col-sm-6 col-md-3 py-1">
           <div class="row h-100 m-0 border">
-            <img class="w-100 h-auto" src="{{ministroData.fotoUrl}}" alt="Mapas placeholder">
+            <img class="w-100 h-auto" src="{{ministroData.fotoUrl}}" alt="Mapas placeholder" onerror="this.onerror=null;this.src='/assets/img/map-placeholder.png';">
             <div class="col-12 p-2 pb-0 m-0">
               <h6>
                 {{ ministroData.nombre | title }}
