@@ -1,20 +1,20 @@
 ---
-title: Ministros
+title: Autoridades
 layout: base.njk
 pagination:
-  data: collections.ministros
+  data: collections.autoridades
   size: 16
-  alias: ministros
-permalink: "ministros/{{ pagination.pageNumber + 1 }}/index.html"
+  alias: autoridades
+permalink: "autoridades/{{ pagination.pageNumber + 1 }}/index.html"
 ---
 <div class="container py-5">
   <div class="row justify-content-center">
     <div class="col-12 text-center">
       <h1>
-        Ministros de Guatemala
+        Autoridades de Guatemala
       </h1>
       <p class="h5 text-secondary font-weight-normal">
-        Explora y Visualiza los ministros de Guatemala
+        Explora y Visualiza los autoridades de Guatemala
       </p>
     </div>
     <div class="col-12 col-lg-6 p-2 p-sm-0">
@@ -31,8 +31,8 @@ permalink: "ministros/{{ pagination.pageNumber + 1 }}/index.html"
 <div class="bg-white w-100 py-5">
   <div class="container">
     <div class="row">
-      {%- for ministro in ministros %}
-        {% set ministroData = ministro.data.ministro %}
+      {%- for autoridad in autoridades %}
+        {% set ministroData = autoridad.data.autoridad %}
         <div class="col-12 col-sm-6 col-md-3 py-1">
           <div class="row h-100 m-0 border">
             <img class="w-100 h-auto" src="{{ministroData.fotoUrl}}" alt="Mapas placeholder" onerror="this.onerror=null;this.src='/assets/img/map-placeholder.png';">
@@ -41,7 +41,7 @@ permalink: "ministros/{{ pagination.pageNumber + 1 }}/index.html"
                 {{ ministroData.nombre | title }}
               </h6>
             </div>
-            <a href="{{ministro.url}}" class="btn btn-primary btn-sm text-white mx-2 mb-2 mt-auto">
+            <a href="{{autoridad.url}}" class="btn btn-primary btn-sm text-white mx-2 mb-2 mt-auto">
               Ver más
             </a>
           </div>
@@ -132,7 +132,8 @@ permalink: "ministros/{{ pagination.pageNumber + 1 }}/index.html"
     if (results && results.length > 0) {
       searchResultsContainer.style.position = 'absolute';
       results.map(r => {
-        const { id, departamento, ministro } = r.doc;
+        console.log(r.doc);
+        const { id, nombre, institution } = r.doc;
 
         // this is where you'll go wild with your own HTML injection.
         const li = document.createElement("li");
@@ -140,13 +141,13 @@ permalink: "ministros/{{ pagination.pageNumber + 1 }}/index.html"
 
         const a = document.createElement("a");
         a.setAttribute("href", id);
-        a.textContent = `${departamento}, ${ministro}`;
+        a.textContent = `${nombre}, ${institution}`;
         li.appendChild(a);
       });
     }
   };
 
-  fetch("/search-index.json").then(response =>
+  fetch("/autoridad-search-index.json").then(response =>
     response.json().then(rawIndex => {
       window.searchIndex = elasticlunr.Index.load(rawIndex);
       document.getElementById("searchField").addEventListener("input", search);

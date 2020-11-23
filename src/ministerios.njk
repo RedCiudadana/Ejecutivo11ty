@@ -139,7 +139,7 @@ permalink: "ministerios/{{ pagination.pageNumber + 1 }}/index.html"
     if (results && results.length > 0) {
       searchResultsContainer.style.position = 'absolute';
       results.map(r => {
-        const { id, departamento, ministerio } = r.doc;
+        const { id, nombreDeInstitucion } = r.doc;
 
         // this is where you'll go wild with your own HTML injection.
         const li = document.createElement("li");
@@ -147,13 +147,13 @@ permalink: "ministerios/{{ pagination.pageNumber + 1 }}/index.html"
 
         const a = document.createElement("a");
         a.setAttribute("href", id);
-        a.textContent = `${departamento}, ${ministerio}`;
+        a.textContent = `${nombreDeInstitucion}`;
         li.appendChild(a);
       });
     }
   };
 
-  fetch("/search-index.json").then(response =>
+  fetch("/ministerio-search-index.json").then(response =>
     response.json().then(rawIndex => {
       window.searchIndex = elasticlunr.Index.load(rawIndex);
       document.getElementById("searchField").addEventListener("input", search);

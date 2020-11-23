@@ -54,14 +54,14 @@ const jsonSchema = {
     fotoUrl: {
         type: 'string'
     },
-    ministros: {
+    autoridades: {
         type: 'array'
     }
 }
 
 promises = ministerios.map(function (ministerio) {
     // Ministros
-    ministerio.ministros = ministros.filter((ministro) => {
+    ministerio.autoridades = ministros.filter((ministro) => {
         return ministro.institution.trim() === ministerio.nombreDeInstitucion.trim();
     });
 

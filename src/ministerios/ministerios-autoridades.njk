@@ -4,7 +4,7 @@ pagination:
   size: 1
   addAllPagesToCollections: true
   alias: ministerio
-permalink: "/{{ministerio.nombreDeInstitucion | slug }}/ministros/index.html"
+permalink: "/{{ministerio.nombreDeInstitucion | slug }}/autoridades/index.html"
 ---
 {% extends "src/_includes/baseToExtend.njk" %}
 
@@ -29,8 +29,8 @@ permalink: "/{{ministerio.nombreDeInstitucion | slug }}/ministros/index.html"
           <a href="/{{ ministerio.nombreDeInstitucion | slug }}/index.html" class="col-12 col-md-3 m-0 p-2 text-left text-md-center font-weight-bold border-right">
             Ministerio
           </a>
-          <a href="/{{ ministerio.nombreDeInstitucion | slug }}/ministros/index.html" class="col-12 col-md-3 m-0 p-2 text-left text-md-center bg-primary text-white font-weight-bold border-right">
-            Ministros
+          <a href="/{{ ministerio.nombreDeInstitucion | slug }}/autoridades/index.html" class="col-12 col-md-3 m-0 p-2 text-left text-md-center bg-primary text-white font-weight-bold border-right">
+            Autoridades
           </a>
         </div>
       </div>
@@ -38,7 +38,7 @@ permalink: "/{{ministerio.nombreDeInstitucion | slug }}/ministros/index.html"
         <div class="bg-white w-100 row m-0 p-0">
           <div class="col-12 bg-secondary py-2 px-3 d-flex">
             <h4 class="text-white m-0 font-weight-normal" id="titleTematicaContainer">
-              Ministros
+              Autoridades
             </h4>
           </div>
           <div class="col-12 p-0">
@@ -53,21 +53,21 @@ permalink: "/{{ministerio.nombreDeInstitucion | slug }}/ministros/index.html"
                       </tr>
                     </thead>
                     <tbody>
-                      {% for ministro in ministerio.ministros %}
+                      {% for autoridad in ministerio.autoridades %}
                         <tr>
                           <td>
-                            <a href="/{{ ministro.idPerfil + '-' + ministro.nombre | slug }}">
-                              {{ministro.nombre}}
+                            <a href="/{{ autoridad.idPerfil + '-' + autoridad.nombre | slug }}">
+                              {{autoridad.nombre}}
                             </a>
                           </td>
                           <td>
-                            {{ministro.puesto}}
+                            {{autoridad.puesto}}
                           </td>
                         </tr>
                       {% endfor %}
                     </tbody>
                   </table>
-                  <small>Fuente: {{ministerio.ministros[0].fuenteTexto}}</small>
+                  <small>Fuente: {{ministerio.autoridades[0].fuenteTexto}}</small>
                 </div>
               </div>
             </div>
