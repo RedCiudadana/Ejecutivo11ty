@@ -5,60 +5,14 @@
 {% endblock %}
 
 {% block content %}
-  {# carousel #}
-  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-    <ol class="carousel-indicators">
-      <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-      <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-      <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-    </ol>
-    <div class="carousel-inner" style="overflow: visible;">
-      <div class="carousel-item active">
-        <div class="d-block w-100" style="max-height: 600px; height: 80vw; overflow: hidden; background-image: url('/assets/img/slide-1.jpg');background-repeat: no-repeat;background-position: center; background-size: cover;">
-        </div>
-        <div class="carousel-caption d-flex h-100">
-          <div class="w-100 my-auto">
-            <h3 class="text-white">
-              Explora, Visualiza y Analiza <br>
-              Datos municipales de Guatemala
-            </h3>
-            <div class="w-auto mx-auto" style="max-width: 400px; z-index: 1000;">
-              <div class="field">
-                <input class="form-control mx-auto" type="search" placeholder="Buscar" id="searchField" style="max-width: 400px;"/>
-              </div>
-              <div id="searchResultsContainer" class="w-100 rounded bg-white shadow-sm mx-auto" style="max-width: 400px;">
-                <ol id="searchResults" style="z-index: 20;">
-                </ol>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="sr-only">Anterior</span>
-    </a>
-    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="sr-only">Siguiente</span>
-    </a>
-  </div>
   {# main #}
   <div class="w-100">
     <div class="container py-5">
       <div class="row">
-        <div class="col-12 mb-2 col-md-6">
+        <div class="col-12">
           <h2 class="mb-2">
             ¿Qué es Laboratorio Municipal?
           </h2>
-          <p class="h5 font-weight-normal text-justify">
-            Laboratorio Municipal es un proyecto de Red Ciudadana que busca facilitar datos municipales en un interfaz amigable para navegar, incluidas visualizaciones para un primer vistazo más útil.
-          </p>
-        </div>
-        <div class="col-12 mb-2 col-md-6 text-center px-md-4">
-          <iframe style="min-height: 300px;" class="w-100 h-auto" src="https://www.youtube.com/embed/UHGvdqwvizE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen"></iframe>
-        </div>
       </div>
     </div>
   </div>
@@ -67,242 +21,38 @@
       <div class="row">
         <div class="col-12 d-flex mb-2">
           <h1>
-            Municipios
+            Ministros
           </h1>
           <div class="ml-auto">
-            <a href="municipios/1/index.html" class="btn btn-secondary text-white">
+            <a href="ministros/1/index.html" class="btn btn-secondary text-white">
               Ver más
             </a>
           </div>
         </div>
-        {% set municipios = collections.municipios | slice(90) %}
-        {% set municipios = municipios[0] %}
-        {%- for municipio in municipios %}
-          {% set municipioData = municipio.data.municipio %}
-          <div class="col-12 col-lg-3 py-1">
-            <div class="w-100 border">
-              <div class="bg-dark w-100 text-center">
-                <img src="/assets/img/lab-gray.png" class="p-4 img-fluid" alt="Laboratorio">
+        {% set ministros = collections.ministros | slice(collections.ministros.length / 4) %}
+        {% set ministros = ministros[0] %}
+        <div class="row row-eq-height">
+          {%- for ministro in ministros %}
+            {% set ministroData = ministro.data.ministro %}
+            <div class="col-12 col-lg-3 py-1">
+              <div class="w-100 h-100 border row m-0 p-0">
+                <div class="bg-dark w-100 text-center col-12 m-0 p-0">
+                  <img src="/assets/img/lab-gray.png" class="p-4 img-fluid" alt="Laboratorio">
+                </div>
+                <div class="w-100 pt-3 px-3 pb-0 col-12 m-0">
+                  <p>
+                    {{ ministroData.nombre | title }}, <br>
+                    <small>{{ ministroData.puesto | title}}</small>
+                  </p>
+                </div>
+                <a href="{{ministro.url}}" class="btn btn-primary text-white mt-auto mx-3 mb-3">Ver más</a>
               </div>
-              <div class="w-100 p-3">
-                <p>
-                  {{ municipioData.departamento | title }},
-                  {{ municipioData.municipio | title}}
-                </p>
-                <a href="{{municipio.url}}" class="btn btn-primary text-white">Ver más</a>
-              </div>
             </div>
-          </div>
-        {% endfor %}
-      </div>
-    </div>
-  </div>
-  <div class="container py-5">
-    <div class="row">
-      <div class="col-12">
-        <h1>
-          Tematicas
-        </h1>
-        <p class="h5 text-secondary font-weight-normal">
-          Obtén más información sobre los conceptos y las tablas que presenta la plataforma de datos. Queremos ayudarte a usar mejor estos datos, así que avísenos si hay temas que te gustaría que expliquemos.
-        </p>
-      </div>
-      {% for tematica in collections.tematicas %}
-        <div class="col-12 col-sm-6 col-lg-3 text-center py-1">
-          <a href="{{tematica.url}}" class="btn btn-lg btn-white rounded-pill border-dark w-100">
-            {{ tematica.data.title }}
-          </a>
-        </div>
-      {% endfor %}
-    </div>
-  </div>
-  <div class="bg-white w-100">
-    <div class="container py-5">
-      <div class="row">
-        <div class="col-12 d-block d-sm-flex mb-2">
-          <h1>
-            Tutoriales
-          </h1>
-          <div class="ml-auto">
-            <a href="tutoriales" class="btn btn-secondary text-white">
-              Ver más
-            </a>
-          </div>
-        </div>
-        <div class="col-12 col-lg-4 py-1">
-          <div class="w-100 border">
-            <div class="bg-dark w-100 text-center">
-              <img src="/assets/img/video.png" class="p-4 img-fluid mx-auto" alt="Laboratorio">
-            </div>
-            <div class="w-100 p-3">
-              <h5>
-                Lorem ipsum
-              </h5>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque ad debitis repudiandae!
-              </p>
-              <a href="#" class="btn btn-primary text-white">Ver más</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-lg-4 py-1">
-          <div class="w-100 border">
-            <div class="bg-dark w-100 text-center">
-              <img src="/assets/img/video.png" class="p-4 img-fluid mx-auto" alt="Laboratorio">
-            </div>
-            <div class="w-100 p-3">
-              <h5>
-                Lorem ipsum
-              </h5>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque ad debitis repudiandae!
-              </p>
-              <a href="#" class="btn btn-primary text-white">Ver más</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-lg-4 py-1">
-          <div class="w-100 border">
-            <div class="bg-dark w-100 text-center">
-              <img src="/assets/img/video.png" class="p-4 img-fluid mx-auto" alt="Laboratorio">
-            </div>
-            <div class="w-100 p-3">
-              <h5>
-                Lorem ipsum
-              </h5>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque ad debitis repudiandae!
-              </p>
-              <a href="#" class="btn btn-primary text-white">Ver más</a>
-            </div>
-          </div>
+          {% endfor %}
         </div>
       </div>
     </div>
   </div>
-  <div class="bg-white w-100">
-    <div class="container py-5">
-      <div class="row">
-        <div class="col-12 d-block d-sm-flex mb-2">
-          <h1>
-            Visualizaciones
-          </h1>
-          <div class="ml-auto">
-            <a href="visualizaciones" class="btn btn-secondary text-white">
-              Ver más
-            </a>
-          </div>
-        </div>
-        <div class="col-12" id="rss-container">
-          <div id="retainable-rss-embed"
-            data-rss="https://medium.com/feed/redciudadana"
-            data-maxcols="4"
-            data-layout="slider"
-            data-poststyle="modal"
-            data-readmore="Ver más"
-            data-buttonclass="btn btn-primary text-white"
-            data-offset="-100"></div>
-        </div>
-        <div class="col-12 col-lg-3 py-1 d-none">
-          <div class="w-100 border">
-            <div class="bg-dark w-100 text-center">
-              <img src="/assets/img/lab-gray.png" class="p-4 img-fluid" alt="Laboratorio">
-            </div>
-            <div class="w-100 p-3">
-              <h6>
-                Lorem ipsum
-              </h6>
-              <p>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-              </p>  
-              <a href="#" class="btn btn-primary text-white">Ver más</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-lg-3 py-1 d-none">
-          <div class="w-100 border">
-            <div class="bg-dark w-100 text-center">
-              <img src="/assets/img/lab-gray.png" class="p-4 img-fluid" alt="Laboratorio">
-            </div>
-            <div class="w-100 p-3">
-              <h6>
-                Lorem ipsum
-              </h6>
-              <p>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-              </p>  
-              <a href="#" class="btn btn-primary text-white">Ver más</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-lg-3 py-1 d-none">
-          <div class="w-100 border">
-            <div class="bg-dark w-100 text-center">
-              <img src="/assets/img/lab-gray.png" class="p-4 img-fluid" alt="Laboratorio">
-            </div>
-            <div class="w-100 p-3">
-              <h6>
-                Lorem ipsum
-              </h6>
-              <p>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-              </p>  
-              <a href="#" class="btn btn-primary text-white">Ver más</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-lg-3 py-1 d-none">
-          <div class="w-100 border">
-            <div class="bg-dark w-100 text-center">
-              <img src="/assets/img/lab-gray.png" class="p-4 img-fluid" alt="Laboratorio">
-            </div>
-            <div class="w-100 p-3">
-              <h6>
-                Lorem ipsum
-              </h6>
-              <p>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-              </p>  
-              <a href="#" class="btn btn-primary text-white">Ver más</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <style>
-    #rss-container h2 {
-      font-size: 1rem;
-    }
-
-    #rss-container .excerpt {
-      display: none;
-    }
-
-    #rss-container .excerpt h3 {
-      font-size: 1rem !important;
-      font-weight: normal !important;
-    }
-
-    #rss-container .col-sm-3 {
-      margin-bottom: 1rem;
-      /* border: 1px solid #dee2e6 !important; */
-      /* padding: 0; */
-    }
-
-    #rss-container .post-date {
-      display: none;
-    }
-
-    #rss-container .read-more {
-      text-align: left;
-      padding: 0.5rem 0 0.5rem 0;
-    }
-
-    .rtb-close {
-      z-index: 1000;
-    }
-  </style>
 {% endblock %}
 
 {% block body_javascripts %}
@@ -323,7 +73,7 @@
         if (results && results.length > 0) {
           searchResultsContainer.style.position = 'absolute';
           results.map(r => {
-            const { id, departamento, municipio } = r.doc;
+            const { id, departamento, ministro } = r.doc;
 
             // this is where you'll go wild with your own HTML injection.
             const li = document.createElement("li");
@@ -331,7 +81,7 @@
 
             const a = document.createElement("a");
             a.setAttribute("href", id);
-            a.textContent = `${departamento}, ${municipio}`;
+            a.textContent = `${departamento}, ${ministro}`;
             li.appendChild(a);
           });
         }

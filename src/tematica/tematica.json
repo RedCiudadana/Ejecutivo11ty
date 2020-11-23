@@ -1,5 +1,0 @@
-{
-    "tags": "tematicas",
-    "layout": "base",
-    "permalink": "tematicas/{{ page.fileSlug }}/"
-}

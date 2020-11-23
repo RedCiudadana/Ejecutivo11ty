@@ -1,6 +1,7 @@
 const elasticlunr = require("elasticlunr");
 
 module.exports = function (collection) {
+    return {};
     // what fields we'd like our index to consist of
     var index = elasticlunr(function () {
         this.addField("municipio");

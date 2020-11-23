@@ -1,0 +1,81 @@
+---
+pagination:
+  data: ministeriosData
+  size: 1
+  alias: municipio
+---
+{% extends "src/_includes/baseToExtend.njk" %}
+
+{% block head %}{% endblock %}
+
+{% block content %}
+  <style>
+    #map-container {
+      width: 100%;
+      height: 200px;
+    }
+  </style>
+  <div class="container">
+    <div class="row">
+      <div class="col-12 py-2">
+        <a href="/municipios/1">Municipios</a>
+        \
+        {{ municipio.municipio }}
+      </div>
+      <div class="col-12 mb-2">
+        <div class="bg-white w-100 row m-0 p-0">
+          <a href="/{{ municipio.departamento | slug }}/{{ municipio.municipio | slug }}/index.html" class="col-12 col-md-3 m-0 p-2 text-center font-weight-bold border-right">
+            <img src="/assets/img/general.png" height="25px" alt="Casa" class="mr-1">
+            Municipalidades
+          </a>
+          <a href="/{{ municipio.departamento | slug }}/{{ municipio.municipio | slug }}/corporacion.html" class="bg-primary text-white col-12 col-md-3 m-0 p-2 text-center font-weight-bold border-right">
+            <img src="/assets/img/coorporacion-white.png" height="25px" alt="Casa" class="mr-1">
+            Corporación municipal
+          </a>
+        </div>
+      </div>
+      <div class="col-12 mb-2">
+        <div class="bg-white w-100 row m-0 p-0">
+          <div class="col-12 bg-secondary py-2 px-3 d-flex">
+            <h4 class="text-white m-0 font-weight-normal" id="titleTematicaContainer">
+              Corporación
+            </h4>
+          </div>
+          <div class="col-12 p-0">
+            <div class="w-100">
+              <div class="row m-0 p-0">
+                <div class="col-12 p-3 border">
+                  <table class="table table-sm">
+                    <thead>
+                      <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Cargo</th>
+                        <th scope="col">Partido Político</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for item in municipio.coorporacion %}
+                        <tr>
+                          <td>
+                            {{item.nombre}}
+                          </td>
+                          <td>
+                            {{item.cargo}}
+                          </td>
+                          <td>
+                            {{item.partido}}
+                          </td>
+                        </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                  <small>Fuente: Tribunal Supremo Electoral (TSE)</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
