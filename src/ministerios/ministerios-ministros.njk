@@ -2,7 +2,9 @@
 pagination:
   data: ministeriosData
   size: 1
-  alias: municipio
+  addAllPagesToCollections: true
+  alias: ministerio
+permalink: "/{{ministerio.nombreDeInstitucion | slug }}/ministros/index.html"
 ---
 {% extends "src/_includes/baseToExtend.njk" %}
 
@@ -18,19 +20,17 @@ pagination:
   <div class="container">
     <div class="row">
       <div class="col-12 py-2">
-        <a href="/municipios/1">Municipios</a>
+        <a href="/ministerios/1">Ministerios</a>
         \
-        {{ municipio.municipio }}
+        {{ ministerio.nombreDeInstitucion }}
       </div>
       <div class="col-12 mb-2">
         <div class="bg-white w-100 row m-0 p-0">
-          <a href="/{{ municipio.departamento | slug }}/{{ municipio.municipio | slug }}/index.html" class="col-12 col-md-3 m-0 p-2 text-center font-weight-bold border-right">
-            <img src="/assets/img/general.png" height="25px" alt="Casa" class="mr-1">
-            Municipalidades
+          <a href="/{{ ministerio.nombreDeInstitucion | slug }}/index.html" class="col-12 col-md-3 m-0 p-2 text-left text-md-center font-weight-bold border-right">
+            Ministerio
           </a>
-          <a href="/{{ municipio.departamento | slug }}/{{ municipio.municipio | slug }}/corporacion.html" class="bg-primary text-white col-12 col-md-3 m-0 p-2 text-center font-weight-bold border-right">
-            <img src="/assets/img/coorporacion-white.png" height="25px" alt="Casa" class="mr-1">
-            Corporación municipal
+          <a href="/{{ ministerio.nombreDeInstitucion | slug }}/ministros/index.html" class="col-12 col-md-3 m-0 p-2 text-left text-md-center bg-primary text-white font-weight-bold border-right">
+            Ministros
           </a>
         </div>
       </div>
@@ -38,7 +38,7 @@ pagination:
         <div class="bg-white w-100 row m-0 p-0">
           <div class="col-12 bg-secondary py-2 px-3 d-flex">
             <h4 class="text-white m-0 font-weight-normal" id="titleTematicaContainer">
-              Corporación
+              Ministros
             </h4>
           </div>
           <div class="col-12 p-0">
@@ -49,27 +49,25 @@ pagination:
                     <thead>
                       <tr>
                         <th scope="col">Nombre</th>
-                        <th scope="col">Cargo</th>
-                        <th scope="col">Partido Político</th>
+                        <th scope="col">Puesto</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {% for item in municipio.coorporacion %}
+                      {% for ministro in ministerio.ministros %}
                         <tr>
                           <td>
-                            {{item.nombre}}
+                            <a href="/{{ ministro.idPerfil + '-' + ministro.nombre | slug }}">
+                              {{ministro.nombre}}
+                            </a>
                           </td>
                           <td>
-                            {{item.cargo}}
-                          </td>
-                          <td>
-                            {{item.partido}}
+                            {{ministro.puesto}}
                           </td>
                         </tr>
                       {% endfor %}
                     </tbody>
                   </table>
-                  <small>Fuente: Tribunal Supremo Electoral (TSE)</small>
+                  <small>Fuente: {{ministerio.ministros[0].fuenteTexto}}</small>
                 </div>
               </div>
             </div>

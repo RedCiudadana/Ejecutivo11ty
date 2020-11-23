@@ -33,8 +33,11 @@ tags:
       </div>
       <div class="col-12 mb-2">
         <div class="bg-white w-100 row m-0 p-0">
-          <a href="/{{ ministerio.idPerfil + '-' + ministerio.nombreDeInstitucion | slug }}/index.html" class="col-12 col-md-3 m-0 p-2 bg-primary text-white text-left text-md-center font-weight-bold border-right">
+          <a href="/{{ ministerio.nombreDeInstitucion | slug }}/index.html" class="col-12 col-md-3 m-0 p-2 bg-primary text-white text-left text-md-center font-weight-bold border-right">
             Ministerio
+          </a>
+          <a href="/{{ ministerio.nombreDeInstitucion | slug }}/ministros/index.html" class="col-12 col-md-3 m-0 p-2 text-left text-md-center font-weight-bold border-right">
+            Ministros
           </a>
           <div class="col d-flex">
             <div class="mx-auto ml-md-auto mr-md-0 my-auto d-flex py-2">
@@ -56,7 +59,7 @@ tags:
         <div class="bg-white w-100 row m-0 p-0">
           <div class="col-12 col-lg-4 p-3 p-lg-4 d-flex">
             {% set fotoUrl = ministerio.fotoUrl %}
-            <img src="{{ fotoUrl if fotoUrl else '/assets/img/mapa.png' }}" alt="{{ministerio.nombreDeInstitucion}}" class="m-auto img-fluid">
+            <img src="{{ fotoUrl if fotoUrl else '/assets/img/map-placeholder.png' }}" alt="{{ministerio.nombreDeInstitucion}}" class="m-auto img-fluid">
           </div>
           <div class="col-12 col-lg-4 p-3 p-lg-4 text-left">
             <h3>
