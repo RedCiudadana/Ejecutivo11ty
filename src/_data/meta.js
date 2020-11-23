@@ -1,8 +1,8 @@
 module.exports = {
   url: process.env.URL || "http://localhost:8080",
-  siteName: "Municipalidades 2020",
+  siteName: "Ejecutivo 2020",
   siteDescription:
-    "Sitio para municipalidades 2020",
+    "Sitio para información del Gabinete Ejecutivo 2020 de Guatemala",
   authorName: "Red Ciudadana",
   twitterUsername: "RedxGuate", // no `@`
 };

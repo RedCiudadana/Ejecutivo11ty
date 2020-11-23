@@ -14,7 +14,7 @@ permalink: "ministros/{{ pagination.pageNumber + 1 }}/index.html"
         Ministros de Guatemala
       </h1>
       <p class="h5 text-secondary font-weight-normal">
-        Explora, Visualiza y Analiza datos municipales de Guatemala
+        Explora y Visualiza los ministros de Guatemala
       </p>
     </div>
     <div class="col-12 col-lg-6 p-2 p-sm-0">
@@ -35,11 +35,10 @@ permalink: "ministros/{{ pagination.pageNumber + 1 }}/index.html"
         {% set ministroData = ministro.data.ministro %}
         <div class="col-12 col-sm-6 col-md-3 py-1">
           <div class="row h-100 m-0 border">
-            <img class="w-100 h-auto" src="/assets/img/placeholder-lab.png" alt="Mapas">
+            <img class="w-100 h-auto" src="{{ministroData.fotoUrl}}" alt="Mapas placeholder">
             <div class="col-12 p-2 pb-0 m-0">
               <h6>
-                {{ ministroData.nombre | title }}, <br>
-                <small>{{ ministroData.puesto | title}}</small>
+                {{ ministroData.nombre | title }}
               </h6>
             </div>
             <a href="{{ministro.url}}" class="btn btn-primary btn-sm text-white mx-2 mb-2 mt-auto">

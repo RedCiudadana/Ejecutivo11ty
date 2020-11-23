@@ -1,0 +1,165 @@
+---
+pagination:
+  data: ministeriosData
+  size: 1
+  addAllPagesToCollections: true
+  alias: ministerio
+permalink: "/{{ministerio.nombreDeInstitucion | slug }}/index.html"
+tags:
+  - ministerios
+---
+{% extends "src/_includes/baseToExtend.njk" %}
+
+{% block head %}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" integrity="sha512-/zs32ZEJh+/EO2N1b0PEdoA10JkdC3zJ8L5FTiQu82LR9S/rOQNfQN7U59U9BC12swNeRAz3HSzIL2vpp4fv3w==" crossorigin="anonymous"/>
+{% endblock %}
+
+{% block content %}
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v9.0" nonce="YTtCnNoo"></script>
+  <script type="text/javascript" async src="https://platform.twitter.com/widgets.js"></script>
+  <style>
+    #map-container {
+      width: 100%;
+      height: 200px;
+    }
+  </style>
+  <div class="container">
+    <div class="row">
+      <div class="col-12 py-2">
+        <a href="/ministerios/1">Ministerios</a>
+        \
+        {{ ministerio.nombreDeInstitucion }}
+      </div>
+      <div class="col-12 mb-2">
+        <div class="bg-white w-100 row m-0 p-0">
+          <a href="/{{ ministerio.idPerfil + '-' + ministerio.nombreDeInstitucion | slug }}/index.html" class="col-12 col-md-3 m-0 p-2 bg-primary text-white text-left text-md-center font-weight-bold border-right">
+            Ministerio
+          </a>
+          <div class="col d-flex">
+            <div class="mx-auto ml-md-auto mr-md-0 my-auto d-flex py-2">
+              <!-- Corregir alineación con tweet  -->
+              <style>
+                .fb-share-button span {
+                  vertical-align: top !important;
+                }
+              </style>
+              <div class="fb-share-button my-auto mr-1" data-href="https://labmunicipal.redciudadana.org/" data-layout="button" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Flabmunicipal.redciudadana.org%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Compartir</a></div>
+              <a  class="twitter-share-button my-auto" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Flabmunicipal.redciudadana.org%2F&via=RedxGuate&text=Laboratorio%20Municipal&hashtags=%23LaboratorioMunicipal">
+                Tweet
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 mb-2">
+        <div class="bg-white w-100 row m-0 p-0">
+          <div class="col-12 col-lg-4 p-3 p-lg-4 d-flex">
+            {% set fotoUrl = ministerio.fotoUrl %}
+            <img src="{{ fotoUrl if fotoUrl else '/assets/img/mapa.png' }}" alt="{{ministerio.nombreDeInstitucion}}" class="m-auto img-fluid">
+          </div>
+          <div class="col-12 col-lg-4 p-3 p-lg-4 text-left">
+            <h3>
+              {{ ministerio.nombreDeInstitucion }}
+            </h3>
+            <div class="pb-1 border-bottom">
+              <p class="m-0 h6">
+                Dirección:
+                <span class="text-secondary font-weight-normal">{{ministerio.direccion}}</span>
+              </p>
+            </div>
+            <div class="pb-1 border-bottom">
+              <p class="m-0 h6">
+                Horario:
+                <span class="text-secondary font-weight-normal">{{ministerio.horario}}</span>
+              </p>
+            </div>
+            <div class="pt-1 pb-1">
+              <p class="m-0 h6">
+                Días atención
+                <span class="text-secondary font-weight-normal">{{ministerio.diasAtencion}}</span>
+              </p>
+            </div>
+          </div>
+          <div class="col-12 col-lg-4 p-3 p-lg-4">
+            <h6>
+              Contacto
+            </h6>
+            <ul class="list-unstyled">
+              <li>
+                <img src="/assets/img/twitter.png" alt="Twitter" height="30px">
+                <a class="text-secondary" href="{{ministerio.tw}}">{{ministerio.tw}}</a>
+              </li>
+              <li>
+                <img src="/assets/img/facebook.png" alt="Facebook" height="30px">
+                <a class="text-secondary" href="{{ministerio.fb}}">{{ministerio.fb}}</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      {# Descripción #}
+      <div class="col-12 mb-2">
+        <div class="bg-white w-100 row m-0 p-0">
+          <div class="col-12 bg-secondary py-2 px-3 d-flex">
+            <h4 class="text-white m-0 font-weight-normal">
+              Descripción
+            </h4>
+          </div>
+          <div class="col-12 p-0">
+            <div class="w-100">
+              <div class="row m-0 p-0">
+                <div class="col-12 col-lg-12 p-2 px-3 border">
+                  <p>
+                    {{ministerio.descripcion}}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {# Mision y Vision #}
+      <div class="col-12 mb-2">
+        <div class="bg-white w-100 row m-0 p-0">
+          <div class="col-12 bg-secondary py-2 px-3 d-flex">
+            <h4 class="text-white m-0 font-weight-normal">
+              Mision
+            </h4>
+          </div>
+          <div class="col-12 p-0">
+            <div class="w-100">
+              <div class="row m-0 p-0">
+                <div class="col-12 col-lg-12 p-2 px-3 border">
+                  <p>
+                    {{ministerio.mision}}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 mb-2">
+        <div class="bg-white w-100 row m-0 p-0">
+          <div class="col-12 bg-secondary py-2 px-3 d-flex">
+            <h4 class="text-white m-0 font-weight-normal">
+              Vision
+            </h4>
+          </div>
+          <div class="col-12 p-0">
+            <div class="w-100">
+              <div class="row m-0 p-0">
+                <div class="col-12 col-lg-12 p-2 px-3 border">
+                  <p>
+                    {{ministerio.vision}}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

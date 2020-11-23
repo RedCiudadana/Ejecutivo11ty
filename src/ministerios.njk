@@ -1,0 +1,159 @@
+---
+title: Ministerios
+layout: base.njk
+pagination:
+  data: collections.ministerios
+  size: 8
+  alias: ministerios
+permalink: "ministerios/{{ pagination.pageNumber + 1 }}/index.html"
+---
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-12 text-center">
+      <h1>
+        Ministerios de Guatemala
+      </h1>
+      <p class="h5 text-secondary font-weight-normal">
+        Explora y Visualiza los ministerios de Guatemala
+      </p>
+    </div>
+    <div class="col-12 col-lg-6 p-2 p-sm-0">
+      <div class="field">
+        <input class="form-control" type="search" placeholder="Buscar" id="searchField" />
+      </div>
+      <div id="searchResultsContainer" class="w-100 rounded bg-white shadow-sm">
+        <ol id="searchResults">
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="bg-white w-100 py-5">
+  <div class="container">
+    <div class="row">
+      {%- for ministerio in ministerios %}
+        {% set ministerioData = ministerio.data.ministerio %}
+        <div class="col-12 col-sm-6 col-md-3 py-1">
+          <div class="row h-100 m-0 border">
+            {% set lengthfotoUrl = ministerioData.fotoUrl | length %}
+            <div class="w-100">
+              <img class="w-100 h-auto" src="{{ministerioData.fotoUrl}}" alt="{{ ministerioData.nombreDeInstitucion | title }}">
+            </div>
+            <div class="col-12 p-2 pb-0 m-0">
+              <h6>
+                {{ ministerioData.nombreDeInstitucion | title }}
+              </h6>
+            </div>
+            <a href="{{ministerio.url}}" class="btn btn-primary btn-sm text-white mx-2 mb-2 mt-auto">
+              Ver más
+            </a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  <nav aria-labelledby="my-pagination w-100">
+    <ol class="pagination pagination-sm justify-content-center mt-3">
+      <li class="page-item">
+        {% if page.url != pagination.href.first %}
+        <a class="page-link" href="{{ pagination.href.first }}">
+          Primera
+        </a>
+        {% else %}
+        <a class="page-link text-secondary" href="#">
+          Primera
+        </a>
+        {% endif %}
+      </li>
+      <li class="page-item">
+        {% if pagination.href.previous %}
+        <a class="page-link" href="{{ pagination.href.previous }}">
+          Anterior
+        </a>
+        {% else %}
+        <a class="page-link text-secondary" href="#">
+          Anterior
+        </a>
+        {% endif %}
+      </li>
+      <li class="page-item">
+        <a class="page-link">
+          {{ pagination.pageNumber + 1 }}
+        </a>
+      </li>
+      {# {% set currentPages = pagination | paginationSlice %}
+      {%- for pageEntry in  currentPages %}
+      <li class="page-item {% if page.url == pagination.hrefs[ loop.index0 ] %} active{% endif %}">
+        <a
+          class="page-link" 
+          href="{{ pagination.hrefs[ loop.index0 ] }}"
+          {% if page.url == pagination.hrefs[ loop.index0 ] %} aria-current="page"{% endif %}
+        >
+          {{ pageEntry.pageNumber }}
+          {{ loop.index - 1}}
+        </a>
+      </li>
+      {%- endfor %} #}
+      <li class="page-item">
+        {% if pagination.href.next %}
+        <a class="page-link" href="{{ pagination.href.next }}">
+          Siguiente
+        </a>
+        {% else %}
+        <a class="page-link text-secondary" href="#">
+          Siguiente
+        </a>
+        {% endif %}
+      </li>
+      <li class="page-item">
+        {% if page.url != pagination.href.last %}
+        <a class="page-link" href="{{ pagination.href.last }}">
+          Última
+        </a>
+        {% else %}
+        <a class="page-link text-secondary" href="#">
+          Última
+        </a>
+        {% endif %}
+      </li>
+    </ol>
+  </nav>
+</div>
+<!--Only 5.7kb GZipped. You may want to bundle this with your application code. -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/elasticlunr/0.9.6/elasticlunr.min.js"></script>
+<script>
+  (function(window, document) {
+  "use strict";
+
+  const search = e => {
+    const results = window.searchIndex.search(e.target.value);
+
+    const ol = document.getElementById("searchResults");
+    const searchResultsContainer = document.getElementById("searchResultsContainer");
+    ol.innerHTML = "";
+    searchResultsContainer.style.position = 'none';
+    if (results && results.length > 0) {
+      searchResultsContainer.style.position = 'absolute';
+      results.map(r => {
+        const { id, departamento, ministerio } = r.doc;
+
+        // this is where you'll go wild with your own HTML injection.
+        const li = document.createElement("li");
+        ol.appendChild(li);
+
+        const a = document.createElement("a");
+        a.setAttribute("href", id);
+        a.textContent = `${departamento}, ${ministerio}`;
+        li.appendChild(a);
+      });
+    }
+  };
+
+  fetch("/search-index.json").then(response =>
+    response.json().then(rawIndex => {
+      window.searchIndex = elasticlunr.Index.load(rawIndex);
+      document.getElementById("searchField").addEventListener("input", search);
+    })
+  );
+})(window, document);
+</script>
